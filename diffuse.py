@@ -30,16 +30,14 @@ def inject_dye(sim, corners, jet_intensity, jet_radius):
 
 def run_simulation():
     ngrid = 2 ** 6
-    niters = 200
-    dt = 0.05
+    niters = 50
+    dt = 0.1
     viscosity = 0.001
     diffusion = 0.00001
     
     # Define injection parameters
     jet_intensity = 40
     jet_radius = 2
-
-    object_mask = create_rotated_ellipse_mask(ngrid, ngrid, -15)
     
     sim = Stable2dObject(
         ngrid=ngrid, 
@@ -47,7 +45,8 @@ def run_simulation():
         viscosity=viscosity, 
         dt=dt,
         dye_diffusion=0.005,  # Add dye diffusion parameter
-        object = object_mask,
+        force = 5.0,
+        noslip_bdy = False
     )
     sim = create_initial_conditions(sim)
 
@@ -74,9 +73,7 @@ def run_simulation():
             )
         ]
 
-        sim.object_mask = create_rotated_ellipse_mask(ngrid, ngrid, 180 * np.sin(_ / 10))
-
-        # Inject dye and update simulation
+        
         inject_dye(sim, corners, jet_intensity, jet_radius)
         
         velocity, dye = sim.forward()
@@ -95,7 +92,6 @@ def run_simulation():
         # Plot dye
         im2 = ax2.imshow(dye, cmap='RdPu', norm=dye_norm)
         ax2.set_title('Dye Concentration')
-        ax2.imshow(sim.object_mask, cmap='binary', alpha=0.5)
 
         # Add colorbars on first frame
         if _ == 0:
@@ -109,7 +105,7 @@ def run_simulation():
         frames.append(image)
 
     # Save animation
-    imageio.mimsave('gifs/fluid_with_dye_spin.gif', frames, duration=0.1, loop=0)
+    imageio.mimsave('gifs/fluid_test.gif', frames, duration=0.1, loop=0)
     plt.close(fig)
 
 if __name__ == "__main__":

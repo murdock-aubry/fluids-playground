@@ -56,6 +56,7 @@ def run_simulation():
         dye_diffusion=0.01,  # Add dye diffusion parameter
         object_mask = object_mask,
         force = 10.0,
+        noslip_bdy = True,
     )
     sim = create_initial_conditions(sim)
 

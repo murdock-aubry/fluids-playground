@@ -126,7 +126,7 @@ class Stable2dObject():
         x = np.arange(N)[:, None] - u * dt  
         y = np.arange(N)[None, :] - v * dt 
 
-        # Clamp values to ensure they stay within bounds
+        # Clamp values
         x = np.clip(x, 0.5, N - 1.5)
         y = np.clip(y, 0.5, N - 1.5)
 
@@ -148,15 +148,15 @@ class Stable2dObject():
 
     def apply_no_slip_boundary(self, u, v):
         # Assuming u and v are velocity components in x and y directions respectively
-        # u[0, :] = 0  # Top
-        # u[-1, :] = 0 # Bottom
-        # u[:, 0] = 0  
-        # u[:, -1] = 0 
+        u[0, :] = 0  # Top
+        u[-1, :] = 0 # Bottom
+        u[:, 0] = 0  
+        u[:, -1] = 0 
         
-        # v[0, :] = 0
-        # v[-1, :] = 0
-        # v[:, 0] = 0
-        # v[:, -1] = v[:, 0]
+        v[0, :] = 0
+        v[-1, :] = 0
+        v[:, 0] = 0
+        v[:, -1] = v[:, 0]
 
         return u, v
 
