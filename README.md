@@ -1,4 +1,4 @@
-# Stable2DObject: A 2D Fluid Dynamics Simulation
+# Stable2DObject: A 2D Fluid Dynamics Playground
 
 `Stable2DObject` is a Python-based fluid dynamics simulator designed to model fluid motion, diffusion, and interactions with obstacles in a 2D grid. It is particularly suited for educational, research, and visualization purposes. This implementation focuses on stability, efficiency, and modularity.
 
